@@ -9,6 +9,7 @@ import (
 
 	"github.com/arganaphang/helpdesk/apps/api/domain"
 	"github.com/arganaphang/helpdesk/apps/api/dto"
+	"github.com/arganaphang/helpdesk/apps/api/pkg/common/hash"
 )
 
 type route struct {
@@ -37,16 +38,23 @@ func (r route) login(ctx *gin.Context) {
 	if err != nil {
 		zap.L().Warn("user not found", zap.String("email", body.Email), zap.String("error", err.Error()))
 		ctx.JSON(http.StatusBadRequest, gin.H{
-			"message": "user not found",
+			"message": "email or password is wrong",
 		})
 		return
 	}
-	// TODO: Compare Hash
+	if !hash.Compare(user.Password, body.Password) {
+		zap.L().Warn("wrong password", zap.String("email", body.Email), zap.String("error", err.Error()))
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"message": "email or password is wrong",
+		})
+		return
+	}
 	// TODO: Create JWT
 	// TODO: Create Cookies
 	// TODO: Return JWT
 	ctx.JSON(http.StatusOK, gin.H{
-		"data": user,
+		"message": "loggin successfully",
+		"data":    nil,
 	})
 }
 
@@ -83,8 +91,15 @@ func (r route) create(ctx *gin.Context) {
 		return
 	}
 
-	// TODO: Hash password
-	user, err := r.service.UserService.Create(ctx, domain.User{Name: body.Name, Email: body.Email, Password: body.Password})
+	password, err := hash.Hash(body.Password)
+	if err != nil {
+		zap.L().Warn("failed to hash password", zap.String("error", err.Error()))
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"message": "failed to hash password",
+		})
+		return
+	}
+	user, err := r.service.UserService.Create(ctx, domain.User{Name: body.Name, Email: body.Email, Password: *password})
 	if err != nil {
 		zap.L().Warn("failed to create user", zap.String("error", err.Error()))
 		ctx.JSON(http.StatusBadRequest, gin.H{
