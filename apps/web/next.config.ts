@@ -1,2 +1,2 @@
 import type { NextConfig } from "next";
-export default {} satisfies NextConfig;
+export default ({} satisfies NextConfig);
