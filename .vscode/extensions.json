@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "mikestead.dotenv",
+    "dsznajder.es7-react-js-snippets",
+    "golang.go",
+    "skellock.just",
+    "christian-kohler.path-intellisense",
+    "bradlc.vscode-tailwindcss",
+    "gruntfuggly.todo-tree",
+    "aaron-bond.better-comments"
+  ]
+}
