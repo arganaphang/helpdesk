@@ -51,7 +51,6 @@ func (r route) login(ctx *gin.Context) {
 	}
 	// TODO: Create JWT
 	// TODO: Create Cookies
-	// TODO: Return JWT
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "loggin successfully",
 		"data":    nil,

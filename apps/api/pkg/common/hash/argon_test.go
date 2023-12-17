@@ -2,7 +2,7 @@ package hash
 
 import "testing"
 
-func TestHashAndCompare(t *testing.T) {
+func TestCompare(t *testing.T) {
 	password := "password123"
 	hash, _ := Hash(password)
 	type args struct {
@@ -15,7 +15,7 @@ func TestHashAndCompare(t *testing.T) {
 		want bool
 	}{
 		{
-			name: "Hash and Compare",
+			name: "Compare",
 			args: args{
 				hash:     *hash,
 				password: password,

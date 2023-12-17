@@ -10,6 +10,7 @@ require (
 	github.com/uptrace/bun/driver/pgdriver v1.1.16
 	go.uber.org/zap v1.26.0
 	golang.org/x/crypto v0.16.0
+	github.com/golang-jwt/jwt/v5 v5.2.0
 )
 
 require (

@@ -16,9 +16,13 @@
   "devDependencies": {
     "@biomejs/biome": "1.4.1",
     "@repo/typescript-config": "workspace:*",
+    "@tailwindcss/forms": "^0.5.7",
     "@types/node": "^17.0.12",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6",
     "typescript": "^5.2.2"
   }
 }
