@@ -1,6 +1,5 @@
 {
   "recommendations": [
-    "esbenp.prettier-vscode",
     "mikestead.dotenv",
     "dsznajder.es7-react-js-snippets",
     "golang.go",
@@ -9,6 +8,7 @@
     "bradlc.vscode-tailwindcss",
     "gruntfuggly.todo-tree",
     "aaron-bond.better-comments",
-    "biomejs.biome"
+    "biomejs.biome",
+    "emeraldwalk.runonsave"
   ]
 }

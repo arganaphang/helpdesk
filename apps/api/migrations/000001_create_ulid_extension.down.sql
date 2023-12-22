@@ -1,0 +1,2 @@
+DROP FUNCTION IF EXISTS generate_ulid();
+DROP EXTENSION IF EXISTS pgcrypto;

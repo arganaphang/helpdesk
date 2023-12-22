@@ -3,8 +3,9 @@ package user
 import (
 	"context"
 
+	"github.com/google/uuid"
+
 	"github.com/arganaphang/helpdesk/apps/api/domain"
-	"github.com/oklog/ulid/v2"
 )
 
 type service struct {
@@ -15,7 +16,7 @@ func NewService(repo domain.UserRepository) domain.UserService {
 	return &service{repo: repo}
 }
 
-func (s service) GetByID(ctx context.Context, id ulid.ULID) (*domain.User, error) {
+func (s service) GetByID(ctx context.Context, id uuid.UUID) (*domain.User, error) {
 	return s.repo.GetByID(ctx, id)
 }
 

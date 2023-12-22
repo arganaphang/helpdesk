@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/oklog/ulid/v2"
+	"github.com/google/uuid"
 	"go.uber.org/zap"
 
 	"github.com/arganaphang/helpdesk/apps/api/domain"
@@ -12,20 +12,20 @@ import (
 	"github.com/arganaphang/helpdesk/apps/api/pkg/common/hash"
 )
 
-type route struct {
+type userRoute struct {
 	service *domain.Services
 }
 
 func NewUser(app *gin.Engine, service *domain.Services) {
-	route := route{service: service}
+	route := userRoute{service: service}
 	app.POST("/login", route.login)
 
 	r := app.Group("/user")
-	r.GET("/:id", route.getByID)
-	r.POST("/", route.create)
+	r.GET(":id", route.getByID)
+	r.POST("", route.create)
 }
 
-func (r route) login(ctx *gin.Context) {
+func (r userRoute) login(ctx *gin.Context) {
 	body := &dto.Login{}
 	if err := ctx.ShouldBind(body); err != nil {
 		zap.L().Warn("request body not valid", zap.String("error", err.Error()))
@@ -57,8 +57,8 @@ func (r route) login(ctx *gin.Context) {
 	})
 }
 
-func (r route) getByID(ctx *gin.Context) {
-	id, err := ulid.Parse(ctx.Param("id"))
+func (r userRoute) getByID(ctx *gin.Context) {
+	id, err := uuid.Parse(ctx.Param("id"))
 	if err != nil {
 		zap.L().Warn("id not valid", zap.String("error", err.Error()))
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -80,7 +80,7 @@ func (r route) getByID(ctx *gin.Context) {
 	})
 }
 
-func (r route) create(ctx *gin.Context) {
+func (r userRoute) create(ctx *gin.Context) {
 	body := &dto.CreateUser{}
 	if err := ctx.ShouldBind(body); err != nil {
 		zap.L().Warn("request body not valid", zap.String("error", err.Error()))

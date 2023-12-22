@@ -1,6 +1,8 @@
 package hash
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestCompare(t *testing.T) {
 	password := "password123"

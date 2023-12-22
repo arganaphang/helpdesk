@@ -2,6 +2,7 @@
 import React from "react";
 
 export default function Page() {
+	const ref = React.useRef<HTMLFormElement>(null);
 	const [isLoading, setIsLoading] = React.useState(false);
 
 	async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -13,7 +14,9 @@ export default function Page() {
 				method: "POST",
 				body: formData,
 			});
-			const data = await response.json();
+			if (response.status === 201) {
+				ref.current?.reset();
+			}
 		} catch (e) {
 		} finally {
 			setIsLoading(false);
@@ -22,7 +25,7 @@ export default function Page() {
 
 	return (
 		<div className="w-full min-h-screen flex justify-center items-center">
-			<form onSubmit={onSubmit} className="flex flex-col gap-2 w-96">
+			<form onSubmit={onSubmit} className="flex flex-col gap-2 w-96" ref={ref}>
 				<div>
 					<label htmlFor="name" className="block text-xs font-medium leading-6 text-gray-500">
 						Name
@@ -42,6 +45,17 @@ export default function Page() {
 						id="email"
 						name="email"
 						type="email"
+						className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+					/>
+				</div>
+				<div>
+					<label htmlFor="title" className="block text-xs font-medium leading-6 text-gray-500">
+						Title
+					</label>
+					<input
+						id="title"
+						name="title"
+						type="text"
 						className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
 					/>
 				</div>

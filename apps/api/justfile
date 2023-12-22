@@ -4,11 +4,11 @@ set dotenv-load
 format:
 	gofumpt -l -w .
 	goimports-reviser -rm-unused -set-alias ./...
-	golines -w -m 120 ./**/*.go
+	golines -w -m 120 *.go
 
 # build -> build application
 build:
-	go build -o main ./cmd
+	go build -o main ./cmd/server
 
 # run -> application
 run:
@@ -29,3 +29,7 @@ migrate-create NAME:
 # migrate-up -> up migration
 migrate-up:
 	migrate -path ./migrations -database 'postgres://postgres:postgres@localhost:5432/helpdesk?sslmode=disable' up
+
+# seed-issue -> seeding issue table
+seed-issue:
+	go run ./cmd/seeder

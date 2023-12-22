@@ -3,7 +3,7 @@ package user
 import (
 	"context"
 
-	"github.com/oklog/ulid/v2"
+	"github.com/google/uuid"
 	"github.com/uptrace/bun"
 
 	"github.com/arganaphang/helpdesk/apps/api/domain"
@@ -17,7 +17,7 @@ func NewRepository(db *bun.DB) domain.UserRepository {
 	return &repository{db: db}
 }
 
-func (r repository) GetByID(ctx context.Context, id ulid.ULID) (*domain.User, error) {
+func (r repository) GetByID(ctx context.Context, id uuid.UUID) (*domain.User, error) {
 	user := &domain.User{}
 	err := r.db.NewSelect().Model(user).Where("id = ?", id).Scan(ctx)
 	return user, err
